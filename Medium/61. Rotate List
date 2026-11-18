@@ -1,41 +1,36 @@
+
 class Solution {
-    public ListNode rotateRight(ListNode head, int k) {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
 
-        if (head == null || head.next == null || k == 0) {
+        if (head == NULL || head->next == NULL || k == 0) {
             return head;
         }
 
-        // Find length and last node
-        ListNode tail = head;
-        int length = 1;
+        ListNode* temp = head;
+        int len = 1;
 
-        while (tail.next != null) {
-            tail = tail.next;
-            length++;
+        while (temp->next != NULL) {
+            temp = temp->next;
+            len++;
         }
 
-        // Remove unnecessary rotations
-        k = k % length;
+        temp->next = head;
 
-        if (k == 0) {
-            return head;
-        }
+        k = k % len;
 
-        // Make circular linked list
-        tail.next = head;
+        int steps = len - k;
 
-        // Find new last node
-        int steps = length - k;
-        ListNode newLast = head;
+        ListNode* newTail = head;
 
         for (int i = 1; i < steps; i++) {
-            newLast = newLast.next;
+            newTail = newTail->next;
         }
 
-        // Set new head and break the circle
-        ListNode newHead = newLast.next;
-        newLast.next = null;
+        ListNode* newHead = newTail->next;
+
+        newTail->next = NULL;
 
         return newHead;
     }
-}
+};
